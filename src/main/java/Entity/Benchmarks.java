@@ -1,14 +1,5 @@
 package Entity;
-
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.BenchmarkMode;
-import org.openjdk.jmh.annotations.Fork;
-import org.openjdk.jmh.annotations.Mode;
-import org.openjdk.jmh.annotations.OutputTimeUnit;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,38 +8,43 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Fork(value = 1, warmups = 1)
 public class Benchmarks {
-    @Contract(pure = true)
+    String string = "Hello";
+    String string1 = "Hello";
+
+    int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    int target = 1;
+
     @Benchmark
-    public static @NotNull String concatenationUsingPlus(String string1, String string2) {
-        return string1 + string2;
+    public String concatenationUsingPlus() {
+        return string + string1;
     }
 
     @Benchmark
-    public static @NotNull String concatenationUsingStringBuilder(String string1, String string2) {
-        StringBuilder sb = new StringBuilder();
+    public String concatenationUsingStringBuilder() {
+        var sb = new StringBuilder();
+        sb.append(string);
         sb.append(string1);
-        sb.append(string2);
         return sb.toString();
     }
 
-
-    @Contract(pure = true)
     @Benchmark
-    public static int binarySearch(int @NotNull [] arr, int x) {
-    int left = 0;
-    int right = arr.length - 1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] == x) {
-            return mid;
-        } else if (arr[mid] < x) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
+    public int binarySearch() {
+
+        var left = 0;
+        var right = arr.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (arr[mid] == target) {
+                return mid;
+            } else if (arr[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
         }
+        return -1;
     }
-    return -1;
-}
 
 }
 
