@@ -1,13 +1,13 @@
 package Entity;
 
+
+import org.openjdk.jmh.Main;
+import org.openjdk.jmh.runner.RunnerException;
+
+import java.io.IOException;
+
 public class Benchmarking {
-    public static void main(String[] args) throws Exception {
-        var options = new org.openjdk.jmh.runner.options.OptionsBuilder()
-                .include(StringConcatenationBenchmark.class.getSimpleName())
-                .forks(1)
-                .build();
-        new org.openjdk.jmh.runner.Runner(options).run();
-
-
+    public static void main(String[] args) throws RunnerException, IOException {
+        Main.main(args);
     }
 }
